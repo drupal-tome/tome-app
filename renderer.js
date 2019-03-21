@@ -17,7 +17,7 @@
     if (settings.get("useLocal")) {
       process.env.PATH = originalPath;
     } else {
-      process.env.PATH = `${__dirname}/bin:${process.env.PATH}`;
+      process.env.PATH = `${__dirname}/bin:${originalPath}`;
       process.env.PHP_INI_SCAN_DIR = `${__dirname}/config/php:${homedir}/.tome_app/config/php`;
     }
     return process.env;
@@ -108,6 +108,7 @@
       const child = spawn("php", ["./vendor/bin/drush", "runserver"], {
         detached: true,
         cwd: path,
+        shell: true,
         env: getEnv()
       });
       registerChild(child);
@@ -118,7 +119,7 @@
         reject(new Error(`Failed to start server: Error code ${code}`));
       });
       child.stderr.on("data", data => {
-        if (data.toString().match(/HTTP server listening on 127.0.0.1/)) {
+        if (data.toString().match(/127\.0\.0\.1/)) {
           resolve();
         } else {
           reject(new Error(`Failed to start server: ${data.toString()}`));
