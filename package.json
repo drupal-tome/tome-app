@@ -1,6 +1,7 @@
 {
   "name": "tome-app",
   "description": "An Electron app for Tome.",
+  "repository": "github:drupal-tome/tome-app",
   "main": "index.js",
   "license": "MIT",
   "author": "Samuel Mortenson <samuel@mortenson.coffee>",
