@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <title>Tome</title>
+    <link rel="stylesheet" href="main.css" />
+    <script src="renderer.js"></script>
+  </head>
+  <body>
+    <div id="main">
+      <div id="actions">
+        <button id="viewButton" disabled>View</button>
+        <button id="loginButton" disabled>Login</button>
+        <button id="installButton" disabled>Install</button>
+        <button id="importButton" disabled>Import</button>
+        <button id="restartButton" disabled>Restart</button>
+      </div>
+      <div id="directoryWrapper">
+        <p id="directoryPrefix">Current site:</p>
+        <p id="directoryLabel">None</p>
+        <button
+          id="directoryButton"
+          onclick="document.getElementById('directoryInput').click()"
+        >
+          Open
+        </button>
+        <input type="file" id="directoryInput" webkitdirectory directory />
+      </div>
+      <div id="localWrapper">
+        <label for="useLocalInput">Use local binaries</label>
+        <input type="checkbox" id="useLocalInput" />
+      </div>
+      <div id="loadingScreen"></div>
+    </div>
+  </body>
+</html>

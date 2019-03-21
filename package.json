@@ -1,0 +1,30 @@
+{
+  "name": "tome-app",
+  "description": "An Electron app for Tome.",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "Samuel Mortenson <samuel@mortenson.coffee>",
+  "dependencies": {
+    "electron-settings": "^3.2.0",
+    "find-process": "^1.2.1",
+    "fix-path": "^2.1.0"
+  },
+  "devDependencies": {
+    "electron": "^4.0.8",
+    "electron-packager": "^13.1.1",
+    "husky": "^1.3.1",
+    "prettier": "^1.16.4",
+    "pretty-quick": "^1.10.0"
+  },
+  "scripts": {
+    "start": "electron .",
+    "get-bin": "./get_bin.sh",
+    "package": "electron-packager . Tome --platform=darwin --arch=x64 --overwrite --ignore=\\.idea --icon=icon.icns",
+    "prettier": "prettier --write *.css *.js *.md *.html *.json"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  }
+}
