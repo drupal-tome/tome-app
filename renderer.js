@@ -105,6 +105,7 @@
   async function startServer(path) {
     await killServer();
     return new Promise((resolve, reject) => {
+      let successTimeout;
       const child = spawn("php", ["./vendor/bin/drush", "runserver"], {
         detached: true,
         cwd: path,
@@ -113,15 +114,20 @@
       });
       registerChild(child);
       child.on("error", error => {
+        clearTimeout(successTimeout);
         reject(new Error(`Failed to start server: ${error.message}`));
       });
       child.on("exit", (code, signal) => {
+        clearTimeout(successTimeout);
         reject(new Error(`Failed to start server: Error code ${code}`));
       });
       child.stderr.on("data", data => {
         if (data.toString().match(/127\.0\.0\.1/)) {
-          resolve();
+          successTimeout = setTimeout(() => {
+            resolve();
+          }, 1000);
         } else {
+          clearTimeout(successTimeout);
           reject(new Error(`Failed to start server: ${data.toString()}`));
         }
       });
